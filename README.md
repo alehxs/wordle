@@ -1,2 +1,2 @@
 # wordle
-Wordle Replica
+Wordle Replica made in Python
