@@ -1,2 +1,2 @@
 # wordle
-Worde Replica
+Wordle Replica
