@@ -1,15 +1,26 @@
 import requests
 
 def get_response(word):
-    URL = "https://agilec.cs.uh.edu/spellcheck?check="     
-    return requests.get(f"{URL}{word}").text
+    URL = "https://api.languagetoolplus.com/v2/check"
 
-def parse(response): 
-    if response not in ['true', 'false']:
-        raise ValueError("Not true or false")
+    payload = {
+        "text": word,
+        "language": "en-US"
+    }
 
-    return response == 'true' 
+    headers = {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
+    response = requests.post(URL, data=payload, headers=headers)
+    response.raise_for_status()  
+
+    return response.json()
+
+def parse(response):
+    return not response.get("matches", [])
 
 def spellcheck(word):
     response = get_response(word)
     return parse(response)
+    
